@@ -35,3 +35,4 @@ C:\Users\14413152966\Desktop\gRPCExample\grpcServer\obj\Debug\net9.0\refint\grpc
 C:\Users\14413152966\Desktop\gRPCExample\grpcServer\obj\Debug\net9.0\grpcServer.pdb
 C:\Users\14413152966\Desktop\gRPCExample\grpcServer\obj\Debug\net9.0\grpcServer.genruntimeconfig.cache
 C:\Users\14413152966\Desktop\gRPCExample\grpcServer\obj\Debug\net9.0\ref\grpcServer.dll
+C:\Users\14413152966\Desktop\gRPCExample\grpcServer\obj\Debug\net9.0\grpcServer.sourcelink.json

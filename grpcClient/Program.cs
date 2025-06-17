@@ -1,5 +1,6 @@
 ﻿using System;
 using Grpc.Net.Client;
+using grpcMessageClient;
 using grpcServer;
 
 namespace grpcClient
@@ -9,13 +10,23 @@ namespace grpcClient
         static async Task Main(string[] args)
         {
             var channel = GrpcChannel.ForAddress("http://localhost:5287");
-            var greetClient = new Greeter.GreeterClient(channel);
 
-            HelloReply result = await greetClient.SayHelloAsync(new HelloRequest
+            var messageClient = new Message.MessageClient(channel);
+
+            MessageResponse response = await messageClient.SendMessageAsync(new MessageRequest
             {
-                Name = "Abdullah'tan Selamlar"
+                Message = "Merhaba",
+                Name = "Abdullah"
             });
-            System.Console.WriteLine(result.Message);
+            System.Console.WriteLine(response.Message);
+            
+            // var greetClient = new Greeter.GreeterClient(channel);
+
+            // HelloReply result = await greetClient.SayHelloAsync(new HelloRequest
+            // {
+            //     Name = "Abdullah'tan Selamlar"
+            // });
+            // System.Console.WriteLine(result.Message);
         }
     }
 }
