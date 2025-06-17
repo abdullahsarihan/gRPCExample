@@ -10,15 +10,29 @@ namespace grpcClient
         static async Task Main(string[] args)
         {
             var channel = GrpcChannel.ForAddress("http://localhost:5287");
-
             var messageClient = new Message.MessageClient(channel);
 
-            MessageResponse response = await messageClient.SendMessageAsync(new MessageRequest
+            //Unary
+            // MessageResponse response = await messageClient.SendMessageAsync(new MessageRequest
+            // {
+            //     Message = "Merhaba",
+            //     Name = "Abdullah"
+            // });
+            // System.Console.WriteLine(response.Message);
+            //Server Streaming
+            var response = messageClient.SendMessage(new MessageRequest
             {
                 Message = "Merhaba",
                 Name = "Abdullah"
             });
-            System.Console.WriteLine(response.Message);
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+            while (await response.ResponseStream.MoveNext(cancellationTokenSource.Token))
+            {
+                System.Console.WriteLine(response.ResponseStream.Current.Message);
+            }
+
+            
             
             // var greetClient = new Greeter.GreeterClient(channel);
 
