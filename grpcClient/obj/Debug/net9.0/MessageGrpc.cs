@@ -52,7 +52,7 @@ namespace grpcMessageClient {
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse> __Method_SendMessage = new grpc::Method<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse>(
-        grpc::MethodType.ServerStreaming,
+        grpc::MethodType.ClientStreaming,
         __ServiceName,
         "SendMessage",
         __Marshaller_message_MessageRequest,
@@ -94,26 +94,24 @@ namespace grpcMessageClient {
       /// <summary>
       /// Sends a greeting
       /// </summary>
-      /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncServerStreamingCall<global::grpcMessageClient.MessageResponse> SendMessage(global::grpcMessageClient.MessageRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncClientStreamingCall<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse> SendMessage(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return SendMessage(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return SendMessage(new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       /// Sends a greeting
       /// </summary>
-      /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncServerStreamingCall<global::grpcMessageClient.MessageResponse> SendMessage(global::grpcMessageClient.MessageRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncClientStreamingCall<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse> SendMessage(grpc::CallOptions options)
       {
-        return CallInvoker.AsyncServerStreamingCall(__Method_SendMessage, null, options, request);
+        return CallInvoker.AsyncClientStreamingCall(__Method_SendMessage, null, options);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

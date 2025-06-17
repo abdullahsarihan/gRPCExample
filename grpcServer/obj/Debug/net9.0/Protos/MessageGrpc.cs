@@ -52,7 +52,7 @@ namespace grpcMessageServer {
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::grpcMessageServer.MessageRequest, global::grpcMessageServer.MessageResponse> __Method_SendMessage = new grpc::Method<global::grpcMessageServer.MessageRequest, global::grpcMessageServer.MessageResponse>(
-        grpc::MethodType.ServerStreaming,
+        grpc::MethodType.ClientStreaming,
         __ServiceName,
         "SendMessage",
         __Marshaller_message_MessageRequest,
@@ -71,12 +71,11 @@ namespace grpcMessageServer {
       /// <summary>
       /// Sends a greeting
       /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="responseStream">Used for sending responses back to the client.</param>
+      /// <param name="requestStream">Used for reading requests from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>A task indicating completion of the handler.</returns>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task SendMessage(global::grpcMessageServer.MessageRequest request, grpc::IServerStreamWriter<global::grpcMessageServer.MessageResponse> responseStream, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::grpcMessageServer.MessageResponse> SendMessage(grpc::IAsyncStreamReader<global::grpcMessageServer.MessageRequest> requestStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -99,7 +98,7 @@ namespace grpcMessageServer {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, MessageBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_SendMessage, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::grpcMessageServer.MessageRequest, global::grpcMessageServer.MessageResponse>(serviceImpl.SendMessage));
+      serviceBinder.AddMethod(__Method_SendMessage, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::grpcMessageServer.MessageRequest, global::grpcMessageServer.MessageResponse>(serviceImpl.SendMessage));
     }
 
   }

@@ -20,18 +20,32 @@ namespace grpcClient
             // });
             // System.Console.WriteLine(response.Message);
             //Server Streaming
-            var response = messageClient.SendMessage(new MessageRequest
-            {
-                Message = "Merhaba",
-                Name = "Abdullah"
-            });
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            // var response = messageClient.SendMessage(new MessageRequest
+            // {
+            //     Message = "Merhaba",
+            //     Name = "Abdullah"
+            // });
+            // CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-            while (await response.ResponseStream.MoveNext(cancellationTokenSource.Token))
+            // while (await response.ResponseStream.MoveNext(cancellationTokenSource.Token))
+            // {
+            //     System.Console.WriteLine(response.ResponseStream.Current.Message);
+            // }
+
+            //Client Streaming
+            var request = messageClient.SendMessage();
+            for (int i = 0; i < 10; i++)
             {
-                System.Console.WriteLine(response.ResponseStream.Current.Message);
+                await Task.Delay(1000);
+                await request.RequestStream.WriteAsync(new MessageRequest
+                {
+                    Name = "Abdullah",
+                    Message = "Mesaj " + i
+                });
             }
-
+            //Stream datanın sonlandığını ifade eder
+            await request.RequestStream.CompleteAsync();
+            System.Console.WriteLine((await request.ResponseAsync).Message);
             
             
             // var greetClient = new Greeter.GreeterClient(channel);
