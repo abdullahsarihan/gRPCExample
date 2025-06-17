@@ -19,13 +19,14 @@ namespace grpcClient
             //     Name = "Abdullah"
             // });
             // System.Console.WriteLine(response.Message);
+
             //Server Streaming
             // var response = messageClient.SendMessage(new MessageRequest
             // {
             //     Message = "Merhaba",
             //     Name = "Abdullah"
             // });
-            // CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
             // while (await response.ResponseStream.MoveNext(cancellationTokenSource.Token))
             // {
@@ -33,21 +34,40 @@ namespace grpcClient
             // }
 
             //Client Streaming
+            // var request = messageClient.SendMessage();
+            // for (int i = 0; i < 10; i++)
+            // {
+            //     await Task.Delay(1000);
+            //     await request.RequestStream.WriteAsync(new MessageRequest
+            //     {
+            //         Name = "Abdullah",
+            //         Message = "Mesaj " + i
+            //     });
+            // }
+            // //Stream datanın sonlandığını ifade eder
+            // await request.RequestStream.CompleteAsync();
+            // System.Console.WriteLine((await request.ResponseAsync).Message);
+
+            //Bi - Directional Streaming
             var request = messageClient.SendMessage();
-            for (int i = 0; i < 10; i++)
+            var task1 =  Task.Run(async () =>
             {
-                await Task.Delay(1000);
-                await request.RequestStream.WriteAsync(new MessageRequest
+                for (int i = 0; i < 10; i++)
                 {
-                    Name = "Abdullah",
-                    Message = "Mesaj " + i
-                });
+                    await Task.Delay(1000);
+                    request.RequestStream.WriteAsync(new MessageRequest { Name = "Abdullah", Message = "Mesaj " + i });
+                }
+            });
+
+            while (await request.ResponseStream.MoveNext(cancellationTokenSource.Token))
+            {
+                System.Console.WriteLine(request.ResponseStream.Current.Message);
             }
-            //Stream datanın sonlandığını ifade eder
-            await request.RequestStream.CompleteAsync();
-            System.Console.WriteLine((await request.ResponseAsync).Message);
+
+            await task1;
+            request.RequestStream.CompleteAsync();
             
-            
+
             // var greetClient = new Greeter.GreeterClient(channel);
 
             // HelloReply result = await greetClient.SayHelloAsync(new HelloRequest

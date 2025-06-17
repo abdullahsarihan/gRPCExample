@@ -52,7 +52,7 @@ namespace grpcMessageClient {
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse> __Method_SendMessage = new grpc::Method<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse>(
-        grpc::MethodType.ClientStreaming,
+        grpc::MethodType.DuplexStreaming,
         __ServiceName,
         "SendMessage",
         __Marshaller_message_MessageRequest,
@@ -99,7 +99,7 @@ namespace grpcMessageClient {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncClientStreamingCall<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse> SendMessage(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncDuplexStreamingCall<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse> SendMessage(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return SendMessage(new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -109,9 +109,9 @@ namespace grpcMessageClient {
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncClientStreamingCall<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse> SendMessage(grpc::CallOptions options)
+      public virtual grpc::AsyncDuplexStreamingCall<global::grpcMessageClient.MessageRequest, global::grpcMessageClient.MessageResponse> SendMessage(grpc::CallOptions options)
       {
-        return CallInvoker.AsyncClientStreamingCall(__Method_SendMessage, null, options);
+        return CallInvoker.AsyncDuplexStreamingCall(__Method_SendMessage, null, options);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
